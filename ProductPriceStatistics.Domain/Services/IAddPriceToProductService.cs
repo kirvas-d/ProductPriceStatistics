@@ -1,13 +1,14 @@
-﻿using System;
+﻿using ProductPriceStatistics.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProductPriceStatistics.Core.Services
+namespace ProductPriceStatistics.Domain.Services
 {
-    interface IAddPriceToProductService
+    public interface IAddPriceToProductService
     {
-        void 
+        public void AddPriceToProduct(string productName, Price price);
     }
 }

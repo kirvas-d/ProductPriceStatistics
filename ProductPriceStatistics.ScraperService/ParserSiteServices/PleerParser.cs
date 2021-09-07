@@ -2,12 +2,12 @@
 using AngleSharp.Dom;
 using HtmlParser;
 using HtmlParser.HtmlLoaderService;
-using ParserProduct;
+using ProductPriceStatistics.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace ParserProducts.ParserSiteServices
+namespace ProductPriceStatistics.ScraperService.ParserSiteServices
 {
     class PleerParser : AbstractSequentialProcessPageHtmlParser<ProductMeasure>
     {
@@ -37,7 +37,7 @@ namespace ParserProducts.ParserSiteServices
 
                 decimal price = Convert.ToDecimal(regPrice.Match(textPrice).Value);
 
-                yield return new ProductMeasure(name, price, "Pleer", DateTime.Now);
+                yield return new ProductMeasure(name, new Price(price, new Store("Pleer"), DateTime.Now));
             }
         }
     }

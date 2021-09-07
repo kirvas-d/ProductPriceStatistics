@@ -11,18 +11,17 @@ namespace ProductPriceStatistics.Domain.Entities
 
         private List<Tag> _tags;
 
-        public IReadOnlyCollection<Tag> Tags 
-        {
-            get 
-            {
-                return _tags;
-            }
-        }
+        public IReadOnlyCollection<Tag> Tags => _tags;
 
-        public Product(string name, Guid id, IEnumerable<Tag> tags)
+        public Product(Guid id, string name, IEnumerable<Tag> tags = null)
         {
-            Name = name;
+            if (string.IsNullOrWhiteSpace(name)) 
+            {
+                throw new ArgumentNullException("Argument 'name' is null");
+            }
+
             Id = id;
+            Name = name;
             _tags = new List<Tag>(tags);
         }
     }

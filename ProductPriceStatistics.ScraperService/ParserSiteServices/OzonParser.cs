@@ -2,15 +2,12 @@
 using AngleSharp.Dom;
 using HtmlParser;
 using HtmlParser.HtmlLoaderService;
-using ParserProduct;
+using ProductPriceStatistics.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace ParserProducts.ParserSiteServices
+namespace ProductPriceStatistics.ScraperService.ParserSiteServices
 {
     class OzonParser : AbstractSequentialProcessPageHtmlParser<ProductMeasure>
     {
@@ -36,7 +33,7 @@ namespace ParserProducts.ParserSiteServices
                 var val = replace.Replace(regPrice.Match(stringPrice).Value, string.Empty);
                 decimal price = Convert.ToDecimal(val);
 
-                yield return new ProductMeasure(name, price, "OZON", DateTime.Now);
+                yield return new ProductMeasure(name, new Price(price, new Store("OZON"), DateTime.Now));
             }
         }
     }
