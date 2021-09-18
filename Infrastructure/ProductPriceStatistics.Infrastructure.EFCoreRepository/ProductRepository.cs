@@ -39,15 +39,28 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
         public CoreModels.Product GetProductById(Guid productId)
         {
-            var product = Products.Where(p => p.GlobalProductId == productId).FirstOrDefault();
+            var dbProduct = Products.Where(p => p.GlobalProductId == productId).FirstOrDefault();
 
-            CoreModels.Product domainProduct = null;
-            if (product != null)
+            CoreModels.Product coreProduct = null;
+            if (coreProduct != null)
             {
-                domainProduct = new CoreModels.Product(product.GlobalProductId, product.Name);
+                coreProduct = new CoreModels.Product(dbProduct.GlobalProductId, dbProduct.Name);
             }
 
-            return domainProduct;
+            return coreProduct;
+        }
+
+        public CoreModels.Product GetProductByName(string productName)
+        {
+            var dbProduct = Products.Where(p => p.Name == productName).FirstOrDefault();
+
+            CoreModels.Product coreProduct = null;
+            if (coreProduct != null)
+            {
+                coreProduct = new CoreModels.Product(dbProduct.GlobalProductId, dbProduct.Name);
+            }
+
+            return coreProduct;
         }
     }
 }

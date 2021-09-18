@@ -10,6 +10,8 @@ namespace ProductPriceStatistics.Core.Repositories
 
         Product GetProductById(Guid productId);
 
+        Product GetProductByName(string productName);
+
         IEnumerable<Product> GetAllProducts();
     }
 }

@@ -3,7 +3,7 @@ using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using HtmlParser;
 using HtmlParser.HtmlLoaderService;
-using ProductPriceStatistics.Core.Models;
+using ProductPriceStatistics.ScraperService.Models;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -32,7 +32,7 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
                 string stringprice = product.QuerySelector("div.product-min-price__current")?.TextContent;
                 decimal price = Convert.ToDecimal(regPrice.Match(stringprice).Value);
                 
-                yield return new ProductMeasure(name, new Price(price, new Store("DNS"), DateTime.Now));
+                yield return new ProductMeasure(name, price, "DNS", DateTime.Now);
             }
         }
     }

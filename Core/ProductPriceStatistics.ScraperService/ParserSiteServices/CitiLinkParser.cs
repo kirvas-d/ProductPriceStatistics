@@ -4,7 +4,7 @@ using AngleSharp.Html.Dom;
 using HtmlParser;
 using HtmlParser.HtmlLoaderService;
 using Newtonsoft.Json;
-using ProductPriceStatistics.Core.Models;
+using ProductPriceStatistics.ScraperService.Models;
 using System;
 using System.Collections.Generic;
 
@@ -35,7 +35,7 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
                     string name = param.shortName;
                     decimal price = (decimal)param.price;
 
-                    yield return new ProductMeasure(name, new Price(price, new Store("CitiLink"), DateTime.Now));
+                    yield return new ProductMeasure(name, price, "CitiLink", DateTime.Now);
                 }
             }
         }

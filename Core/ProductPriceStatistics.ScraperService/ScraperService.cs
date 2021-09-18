@@ -1,5 +1,6 @@
 ﻿using HtmlParser;
 using HtmlParser.HtmlLoaderService;
+using ProductPriceStatistics.ScraperService.Models;
 using ProductPriceStatistics.ScraperService.ParserConfiguration;
 using ProductPriceStatistics.ScraperService.ParserSiteServices;
 using System.Collections.Generic;

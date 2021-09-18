@@ -2,7 +2,7 @@
 using AngleSharp.Dom;
 using HtmlParser;
 using HtmlParser.HtmlLoaderService;
-using ProductPriceStatistics.Domain.Entities;
+using ProductPriceStatistics.ScraperService.Models;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -33,7 +33,7 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
                 var val = replace.Replace(regPrice.Match(stringPrice).Value, string.Empty);
                 decimal price = Convert.ToDecimal(val);
 
-                yield return new ProductMeasure(name, new Price(price, new Store("OZON"), DateTime.Now));
+                yield return new ProductMeasure(name, price, "OZON", DateTime.Now);
             }
         }
     }

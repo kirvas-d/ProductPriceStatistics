@@ -1,24 +1,31 @@
-﻿using ProductPriceStatistics.Domain.Entities;
-using ProductPriceStatistics.Domain.Repositories;
+﻿using ProductPriceStatistics.Core.Models;
+using ProductPriceStatistics.Core.Repositories;
 using System;
 
 namespace ProductPriceStatistics.Domain.Services
 {
     public class AddPriceToProductService : IAddPriceToProductService
     {
-        private IProductStatisticsRepository _productStatisticsRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IPriceRepository _priceRepository;
 
-        public AddPriceToProductService(IProductStatisticsRepository productStatisticsRepository)
+        public AddPriceToProductService(IProductRepository productRepository, IPriceRepository priceRepository)
         {
-            if (productStatisticsRepository == null) 
+            if (productRepository == null)
             {
-                throw new ArgumentNullException("productStatisticsRepository is null");
+                throw new ArgumentNullException($"{nameof(productRepository)} is null");
             }
 
-            _productStatisticsRepository = productStatisticsRepository;
+            if (priceRepository == null)
+            {
+                throw new ArgumentNullException($"{nameof(priceRepository)} is null");
+            }
+
+            _productRepository = productRepository;
+            _priceRepository = priceRepository;
         }
 
-        public void AddPriceToProduct(string productName, Price price) 
+        public void AddPriceToProduct(string productName, decimal price, string storeName, DateTime dateTimeStamp) 
         {
             if (productName == null) 
             {
@@ -30,17 +37,14 @@ namespace ProductPriceStatistics.Domain.Services
                 throw new ArgumentNullException("price is null");
             }
 
-            Guid? productId = _productStatisticsRepository.GetProductIdByName(productName);
-            if (productId != null)
+            Product product = _productRepository.GetProductByName(productName);
+            if (product == null)
             {
-                _productStatisticsRepository.AddPriceToProduct(productId.Value, price);
-            }
-            else 
-            {
-                Product newProduct = new Product(Guid.NewGuid(), productName);
-                _productStatisticsRepository.AddProduct(newProduct);
-                _productStatisticsRepository.AddPriceToProduct(newProduct.Id, price);
-            }
+                product = new Product(Guid.NewGuid(), productName);
+                _productRepository.AddProduct(product);
+            }        
+
+            _priceRepository.AddPrice(new Price(product.ProductId, price, new Store(storeName), dateTimeStamp));
         }
     }
 }
