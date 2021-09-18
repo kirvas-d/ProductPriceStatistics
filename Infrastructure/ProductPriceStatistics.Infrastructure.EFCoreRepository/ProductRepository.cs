@@ -1,0 +1,53 @@
+﻿using Microsoft.EntityFrameworkCore;
+using ProductPriceStatistics.Core.Repositories;
+using System;
+using System.Collections.Generic;
+using DbModels = ProductPriceStatistics.Infrastructure.EFCoreRepository.Models;
+using CoreModels = ProductPriceStatistics.Core.Models;
+using System.Linq;
+
+namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
+{
+    class ProductRepository : IProductRepository
+    {
+        private readonly ProductPriceStatisticsDbContext _productPriceStatisticsDbContext;
+
+        private DbSet<DbModels.Product> Products => _productPriceStatisticsDbContext.Products;
+
+
+        public ProductRepository(DbContextOptions<ProductPriceStatisticsDbContext> dbContextOptions) 
+        {
+            _productPriceStatisticsDbContext = new ProductPriceStatisticsDbContext(dbContextOptions);
+        }
+
+        public void AddProduct(CoreModels.Product product)
+        {
+            Products.Add(new DbModels.Product()
+            {
+                GlobalProductId = product.ProductId,
+                Name = product.Name
+            });
+        }
+
+        public IEnumerable<CoreModels.Product> GetAllProducts()
+        {
+            foreach (var product in Products)
+            {
+                yield return new CoreModels.Product(product.GlobalProductId, product.Name);
+            }
+        }
+
+        public CoreModels.Product GetProductById(Guid productId)
+        {
+            var product = Products.Where(p => p.GlobalProductId == productId).FirstOrDefault();
+
+            CoreModels.Product domainProduct = null;
+            if (product != null)
+            {
+                domainProduct = new CoreModels.Product(product.GlobalProductId, product.Name);
+            }
+
+            return domainProduct;
+        }
+    }
+}
