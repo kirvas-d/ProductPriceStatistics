@@ -22,7 +22,12 @@ namespace ProductPriceStatistics.Core.Models
 
             ProductId = productId;
             Name = name;
-            _tags = new List<Tag>(tags);
+            
+            _tags = new List<Tag>();
+            if (tags != null) 
+            {
+                _tags.AddRange(tags);
+            }
         }
     }
 }
