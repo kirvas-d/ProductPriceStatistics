@@ -27,6 +27,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
                 GlobalProductId = product.ProductId,
                 Name = product.Name
             });
+            _productPriceStatisticsDbContext.SaveChanges();
         }
 
         public IEnumerable<CoreModels.Product> GetAllProducts()

@@ -42,6 +42,8 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
                 Value = price.Value,
                 DateTimeStamp = price.DateTimeStamp,
             });
+
+            _productPriceStatisticsDbContext.SaveChanges();
         }
 
         public IEnumerable<CoreModels.Price> GetAllPrices()
