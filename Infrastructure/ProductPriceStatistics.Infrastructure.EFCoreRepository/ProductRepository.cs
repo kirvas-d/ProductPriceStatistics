@@ -43,7 +43,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
             var dbProduct = Products.Where(p => p.GlobalProductId == productId).FirstOrDefault();
 
             CoreModels.Product coreProduct = null;
-            if (coreProduct != null)
+            if (dbProduct != null)
             {
                 coreProduct = new CoreModels.Product(dbProduct.GlobalProductId, dbProduct.Name);
             }
@@ -56,7 +56,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
             var dbProduct = Products.Where(p => p.Name == productName).FirstOrDefault();
 
             CoreModels.Product coreProduct = null;
-            if (coreProduct != null)
+            if (dbProduct != null)
             {
                 coreProduct = new CoreModels.Product(dbProduct.GlobalProductId, dbProduct.Name);
             }

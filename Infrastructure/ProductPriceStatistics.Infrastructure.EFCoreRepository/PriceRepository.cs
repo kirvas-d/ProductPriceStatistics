@@ -74,9 +74,9 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
             foreach (var price in pricesOfProduct)
             {
                 yield return new CoreModels.Price(price.Product.GlobalProductId,
-                                                      price.Value,
-                                                      new CoreModels.Store(price.Store.Name),
-                                                      price.DateTimeStamp);
+                                                  price.Value,
+                                                  new CoreModels.Store(price.Store.Name),
+                                                  price.DateTimeStamp);
             }
         }
     }
