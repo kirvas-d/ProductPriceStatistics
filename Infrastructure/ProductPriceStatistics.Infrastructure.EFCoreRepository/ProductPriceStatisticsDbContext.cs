@@ -8,7 +8,7 @@ using ProductPriceStatistics.Infrastructure.EFCoreRepository.Models;
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
-    class ProductPriceStatisticsDbContext : DbContext
+    public class ProductPriceStatisticsDbContext : DbContext
     {
         public DbSet<Price> Prices { get; set; }
         public DbSet<Product> Products { get; set; }

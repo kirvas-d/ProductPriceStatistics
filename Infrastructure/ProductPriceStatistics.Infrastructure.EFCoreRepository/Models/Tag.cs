@@ -2,7 +2,7 @@
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository.Models
 {
-    class Tag
+    public class Tag
     {
         public long TagId { get; set; }
         public long Name { get; set; }

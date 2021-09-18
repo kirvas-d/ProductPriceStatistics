@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
-    class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly ProductPriceStatisticsDbContext _productPriceStatisticsDbContext;
 

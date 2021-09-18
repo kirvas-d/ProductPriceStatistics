@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository.Models
 { 
-    class Product
+    public class Product
     {
         public long Id { get; set; }
         public Guid GlobalProductId { get; set; }
