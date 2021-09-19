@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Core", "Core\ProductPriceStatistics.Core\ProductPriceStatistics.Core.csproj", "{32ABD2D4-E2C3-451D-817A-B836F7182B97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductPriceStatistics.Infrastructure.EFCoreRepository", "Infrastructure\ProductPriceStatistics.Infrastructure.EFCoreRepository\ProductPriceStatistics.Infrastructure.EFCoreRepository.csproj", "{94E4A35B-EB49-4BCA-B921-98CB58C450F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Infrastructure.EFCoreRepository", "Infrastructure\ProductPriceStatistics.Infrastructure.EFCoreRepository\ProductPriceStatistics.Infrastructure.EFCoreRepository.csproj", "{94E4A35B-EB49-4BCA-B921-98CB58C450F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests", "Tests\ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests\ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests.csproj", "{FBD84565-74F2-4167-B8E3-2764DE6BBC8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{94E4A35B-EB49-4BCA-B921-98CB58C450F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94E4A35B-EB49-4BCA-B921-98CB58C450F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94E4A35B-EB49-4BCA-B921-98CB58C450F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD84565-74F2-4167-B8E3-2764DE6BBC8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD84565-74F2-4167-B8E3-2764DE6BBC8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD84565-74F2-4167-B8E3-2764DE6BBC8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD84565-74F2-4167-B8E3-2764DE6BBC8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
