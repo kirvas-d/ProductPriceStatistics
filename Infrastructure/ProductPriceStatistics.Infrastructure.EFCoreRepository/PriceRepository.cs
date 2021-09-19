@@ -10,15 +10,15 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
     public class PriceRepository: IPriceRepository
     {
-        private readonly ProductPriceStatisticsDbContext _productPriceStatisticsDbContext;
+        private readonly ProductPriceStatisticsDbContext _context;
 
-        private DbSet<DbModels.Product> Products => _productPriceStatisticsDbContext.Products;
-        private DbSet<DbModels.Store> Stores => _productPriceStatisticsDbContext.Stores;
-        private DbSet<DbModels.Price> Prices => _productPriceStatisticsDbContext.Prices;
+        private DbSet<DbModels.Product> Products => _context.Products;
+        private DbSet<DbModels.Store> Stores => _context.Stores;
+        private DbSet<DbModels.Price> Prices => _context.Prices;
 
-        public PriceRepository(DbContextOptions<ProductPriceStatisticsDbContext> dbContextOptions)
+        public PriceRepository(ProductPriceStatisticsDbContext context)
         {
-            _productPriceStatisticsDbContext = new ProductPriceStatisticsDbContext(dbContextOptions);
+            _context = context;
         }
 
         public void AddPrice(CoreModels.Price price)
@@ -43,7 +43,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
                 DateTimeStamp = price.DateTimeStamp,
             });
 
-            _productPriceStatisticsDbContext.SaveChanges();
+            _context.SaveChanges();
         }
 
         public IEnumerable<CoreModels.Price> GetAllPrices()

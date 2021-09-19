@@ -10,9 +10,9 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly ProductPriceStatisticsDbContext _productPriceStatisticsDbContext;
+        private readonly ProductPriceStatisticsDbContext _context;
 
-        private DbSet<DbModels.Product> Products => _productPriceStatisticsDbContext.Products;
+        private DbSet<DbModels.Product> Products => _context.Products;
 
         public ProductRepository(ProductPriceStatisticsDbContext productPriceStatisticsDbContext)
         {
@@ -21,7 +21,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
                 throw new ArgumentNullException($"Argument {nameof(productPriceStatisticsDbContext)} is null");
             }
 
-            _productPriceStatisticsDbContext = productPriceStatisticsDbContext;
+            _context = productPriceStatisticsDbContext;
         }
 
         public void AddProduct(CoreModels.Product product)
@@ -31,7 +31,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
                 GlobalProductId = product.ProductId,
                 Name = product.Name
             });
-            _productPriceStatisticsDbContext.SaveChanges();
+            _context.SaveChanges();
         }
 
         public IEnumerable<CoreModels.Product> GetAllProducts()
