@@ -26,13 +26,14 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
             var product = Products.Where(p => p.GlobalProductId == price.ProductId).FirstOrDefault();
             if (product == null)
             {
-                throw new Exception();
+                throw new Exception($"Product with id {price.ProductId} was not found");
             }
 
             var store = Stores.Where(p => p.Name == price.Store.Name).FirstOrDefault();
             if (store == null)
-            {
-                throw new Exception();
+            {   
+                store = new DbModels.Store() { Name = price.Store.Name };
+                Stores.Add(store);
             }
 
             Prices.Add(new DbModels.Price()
