@@ -14,10 +14,14 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
         private DbSet<DbModels.Product> Products => _productPriceStatisticsDbContext.Products;
 
-
-        public ProductRepository(DbContextOptions<ProductPriceStatisticsDbContext> dbContextOptions) 
+        public ProductRepository(ProductPriceStatisticsDbContext productPriceStatisticsDbContext)
         {
-            _productPriceStatisticsDbContext = new ProductPriceStatisticsDbContext(dbContextOptions);
+            if (productPriceStatisticsDbContext == null) 
+            {
+                throw new ArgumentNullException($"Argument {nameof(productPriceStatisticsDbContext)} is null");
+            }
+
+            _productPriceStatisticsDbContext = productPriceStatisticsDbContext;
         }
 
         public void AddProduct(CoreModels.Product product)
