@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests", "Tests\ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests\ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests.csproj", "{FBD84565-74F2-4167-B8E3-2764DE6BBC8B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{02CE0291-3E4F-4EC0-ADFA-CD65396B7A1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,7 @@ Global
 		{5BA02C01-1715-4541-994C-3B313B2D2FAB} = {72D45900-3124-4C02-8890-BF498D617260}
 		{32ABD2D4-E2C3-451D-817A-B836F7182B97} = {D4E4123E-0279-4477-ACA2-312FBBFA504F}
 		{94E4A35B-EB49-4BCA-B921-98CB58C450F6} = {72D45900-3124-4C02-8890-BF498D617260}
+		{FBD84565-74F2-4167-B8E3-2764DE6BBC8B} = {02CE0291-3E4F-4EC0-ADFA-CD65396B7A1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D1B03BED-D1CE-4EB8-989B-05F816DFAD69}
