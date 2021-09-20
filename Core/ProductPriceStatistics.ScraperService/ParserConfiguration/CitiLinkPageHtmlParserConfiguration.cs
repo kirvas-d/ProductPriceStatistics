@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProductPriceStatistics.ScraperService.ParserConfiguration
 {
-    class CitiLinkPageHtmlParserConfiguration : PageHtmlParserConfiguration
+    public class CitiLinkPageHtmlParserConfiguration : PageHtmlParserConfiguration
     {
     }
 }
