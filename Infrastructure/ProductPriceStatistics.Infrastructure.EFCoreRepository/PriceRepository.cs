@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
-    public class PriceRepository: IPriceRepository
+    public class PriceRepository: IPriceRepository, IDisposable
     {
         private readonly ProductPriceStatisticsDbContext _context;
 
@@ -49,7 +49,10 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
         public IEnumerable<CoreModels.Price> GetAllPrices()
         {
-            foreach (var price in Prices)
+            var prices = Prices.Include(p => p.Product)
+                .Include(p => p.Store);
+
+            foreach (var price in prices)
             {
                 yield return new CoreModels.Price(price.Product.GlobalProductId,
                                                   price.Value,
@@ -60,7 +63,9 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
         public IEnumerable<CoreModels.Price> GetPricesOfProduct(Guid productId, DateTime? startDateTimeStamp, DateTime? finishDateTimeStamp)
         {
-            IEnumerable<DbModels.Price> pricesOfProduct = Prices.Where(p => p.Product.GlobalProductId == productId);
+            IEnumerable<DbModels.Price> pricesOfProduct = Prices.Where(p => p.Product.GlobalProductId == productId)
+                .Include(p => p.Product)
+                .Include(p => p.Store);
 
             if (startDateTimeStamp != null)
             {
@@ -79,6 +84,11 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
                                                   new CoreModels.Store(price.Store.Name),
                                                   price.DateTimeStamp);
             }
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }

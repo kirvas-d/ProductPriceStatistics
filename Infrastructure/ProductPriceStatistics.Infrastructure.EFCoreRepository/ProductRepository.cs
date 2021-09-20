@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository, IDisposable
     {
         private readonly ProductPriceStatisticsDbContext _context;
 
@@ -66,6 +66,11 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
             }
 
             return coreProduct;
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
     }
 }
