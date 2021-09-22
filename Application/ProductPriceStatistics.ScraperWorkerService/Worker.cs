@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HtmlParser.HtmlLoaderService;
 using ProductPriceStatistics.Domain.Services;
+using ProductPriceStatistics.ScraperWorkerService.Configurations;
 
 namespace ProductPriceStatistics.ScraperWorkerService
 {
@@ -17,7 +18,7 @@ namespace ProductPriceStatistics.ScraperWorkerService
         public Worker(ILogger<Worker> logger, IHtmlLoaderService htmlLoaderService, IAddPriceToProductService addPriceToProductService)
         {
             _logger = logger;
-            _scraperService = new ScraperService.ScraperService(htmlLoaderService, new ParserCongiguration().Configuration);
+            _scraperService = new ScraperService.ScraperService(htmlLoaderService, new ParserConfiguration().Configuration);
             _addPriceToProductService = addPriceToProductService;
         }
 

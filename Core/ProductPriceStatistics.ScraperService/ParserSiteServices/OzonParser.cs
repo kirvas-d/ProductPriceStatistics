@@ -28,12 +28,24 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
 
             foreach (var product in products)
             {
-                string name = product.QuerySelector("a.a2g0").TextContent;
-                string stringPrice = product.QuerySelector("span.b5v6").TextContent;
-                var val = replace.Replace(regPrice.Match(stringPrice).Value, string.Empty);
-                decimal price = Convert.ToDecimal(val);
+                string name = null;
+                decimal? price = null;
+                try
+                {
+                    name = product.QuerySelector("a.a2g0").TextContent;
+                    string stringPrice = product.QuerySelector("span.b5v6").TextContent;
+                    var val = replace.Replace(regPrice.Match(stringPrice).Value, string.Empty);
+                    price = Convert.ToDecimal(val);
+                }
+                catch 
+                {
 
-                yield return new ProductMeasure(name, price, "OZON", DateTime.Now);
+                }
+
+                if (name != null && price != null)
+                {
+                    yield return new ProductMeasure(name, price.Value, "OZON", DateTime.Now);
+                }
             }
         }
     }

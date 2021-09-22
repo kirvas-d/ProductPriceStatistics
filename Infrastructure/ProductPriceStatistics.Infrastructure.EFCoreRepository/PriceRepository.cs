@@ -38,8 +38,8 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
             Prices.Add(new DbModels.Price()
             {
-                ProductId = product.Id,
-                StoreId = store.StoreId,
+                Product = product,
+                Store = store,
                 Value = price.Value,
                 DateTimeStamp = price.DateTimeStamp,
             });

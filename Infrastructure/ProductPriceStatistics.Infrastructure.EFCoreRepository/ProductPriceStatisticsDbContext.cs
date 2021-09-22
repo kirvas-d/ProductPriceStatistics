@@ -15,6 +15,11 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
         public DbSet<Store> Stores { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
+        public ProductPriceStatisticsDbContext()
+            : base()
+        {
+        }
+
         public ProductPriceStatisticsDbContext(DbContextOptions<ProductPriceStatisticsDbContext> options)
             : base(options)
         {
@@ -22,10 +27,10 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //if (!optionsBuilder.IsConfigured)
-            //{
-            //    optionsBuilder.UseNpgsql("Host=192.168.0.131;Port=5432;Database=New_Product_DB;Username=admin;Password=admin");
-            //}
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql("Host=192.168.0.131;Port=5432;Database=New_Product_DB_1;Username=admin;Password=admin");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

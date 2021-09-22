@@ -27,17 +27,24 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
             var products = htmlDocument.QuerySelectorAll("div.section_item");
             foreach (var product in products)
             {
-                string name = product.QuerySelector("span.item_name").InnerHtml;
-                string textPrice = product.QuerySelector("div.price")?.TextContent;
+                string name = null;
+                decimal? price = null;
 
-                if (string.IsNullOrWhiteSpace(textPrice))
+                try
                 {
-                    continue;
+                    name = product.QuerySelector("span.item_name").InnerHtml;
+                    string textPrice = product.QuerySelector("div.price")?.TextContent;
+                    price = Convert.ToDecimal(regPrice.Match(textPrice).Value);
+                }
+                catch 
+                {
+
                 }
 
-                decimal price = Convert.ToDecimal(regPrice.Match(textPrice).Value);
-
-                yield return new ProductMeasure(name, price, "Pleer", DateTime.Now);
+                if (name != null && price != null)
+                {
+                    yield return new ProductMeasure(name, price.Value, "Pleer", DateTime.Now);
+                }
             }
         }
     }

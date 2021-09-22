@@ -30,12 +30,24 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
                 HtmlElement htmlElement = product as HtmlElement;
                 if (htmlElement != null)
                 {
-                    string json = htmlElement.Dataset["params"];
-                    dynamic param = JsonConvert.DeserializeObject(json);
-                    string name = param.shortName;
-                    decimal price = (decimal)param.price;
+                    string name = null;
+                    decimal? price = null;
+                    try
+                    {
+                        string json = htmlElement.Dataset["params"];
+                        dynamic param = JsonConvert.DeserializeObject(json);
+                        name = param.shortName;
+                        price = (decimal)param.price;
+                    }
+                    catch(Exception e)
+                    {
 
-                    yield return new ProductMeasure(name, price, "CitiLink", DateTime.Now);
+                    }
+
+                    if (name != null && price != null)
+                    {
+                        yield return new ProductMeasure(name, price.Value, "CitiLink", DateTime.Now);
+                    }
                 }
             }
         }

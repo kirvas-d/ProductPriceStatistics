@@ -28,11 +28,22 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
             var products = htmlDocument.QuerySelectorAll("div.catalog-product");
             foreach (HtmlElement product in products)
             {
-                string name = product.QuerySelector("a.ui-link").InnerHtml;
-                string stringprice = product.QuerySelector("div.product-min-price__current")?.TextContent;
-                decimal price = Convert.ToDecimal(regPrice.Match(stringprice).Value);
-                
-                yield return new ProductMeasure(name, price, "DNS", DateTime.Now);
+                string name = null;
+                decimal? price = null;
+                try
+                {
+                    name = product.QuerySelector("a.ui-link").InnerHtml;
+                    string stringprice = product.QuerySelector("div.product-buy__price")?.TextContent;
+                    price = Convert.ToDecimal(regPrice.Match(stringprice).Value);
+                }
+                catch 
+                {
+
+                }
+                if (name != null && price != null)
+                {
+                    yield return new ProductMeasure(name, price.Value, "DNS", DateTime.Now);
+                }
             }
         }
     }
