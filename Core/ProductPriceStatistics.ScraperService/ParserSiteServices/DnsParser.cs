@@ -4,6 +4,7 @@ using AngleSharp.Html.Dom;
 using HtmlParser;
 using HtmlParser.HtmlLoaderService;
 using ProductPriceStatistics.ScraperService.Models;
+using ProductPriceStatistics.ScraperService.ParserConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -15,7 +16,7 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
         private readonly IBrowsingContext _browsingContext;
         private readonly Regex regPrice = new Regex(@"[\d-., ]*", RegexOptions.Compiled);
 
-        public DnsParser(IHtmlLoaderService htmlLoaderService, PageHtmlParserConfiguration configure) : base(htmlLoaderService, configure)
+        public DnsParser(IHtmlLoaderService htmlLoaderService, DnsPageHtmlParserConfiguration configure) : base(htmlLoaderService, configure)
         {
             _browsingContext = BrowsingContext.New();
         }

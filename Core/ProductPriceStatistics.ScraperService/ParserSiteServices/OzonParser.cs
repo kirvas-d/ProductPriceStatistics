@@ -3,6 +3,7 @@ using AngleSharp.Dom;
 using HtmlParser;
 using HtmlParser.HtmlLoaderService;
 using ProductPriceStatistics.ScraperService.Models;
+using ProductPriceStatistics.ScraperService.ParserConfiguration;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -15,7 +16,7 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
         private readonly Regex regPrice = new Regex(@"[\d-.,\s]*", RegexOptions.Compiled);
         private readonly Regex replace = new Regex(@"[\s]*", RegexOptions.Compiled);
 
-        public OzonParser(IHtmlLoaderService htmlLoaderService, PageHtmlParserConfiguration configure) : base(htmlLoaderService, configure)
+        public OzonParser(IHtmlLoaderService htmlLoaderService, OzonPageHtmlParserConfiguration configure) : base(htmlLoaderService, configure)
         {
             _browsingContext = BrowsingContext.New();
         }

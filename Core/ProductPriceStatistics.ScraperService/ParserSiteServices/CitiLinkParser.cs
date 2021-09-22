@@ -5,6 +5,7 @@ using HtmlParser;
 using HtmlParser.HtmlLoaderService;
 using Newtonsoft.Json;
 using ProductPriceStatistics.ScraperService.Models;
+using ProductPriceStatistics.ScraperService.ParserConfiguration;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +15,7 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
     {
         private readonly IBrowsingContext _browsingContext;
 
-        public CitiLinkParser(IHtmlLoaderService htmlLoaderService, PageHtmlParserConfiguration configure) : base(htmlLoaderService, configure)
+        public CitiLinkParser(IHtmlLoaderService htmlLoaderService, CitiLinkPageHtmlParserConfiguration configure) : base(htmlLoaderService, configure)
         {
             _browsingContext = BrowsingContext.New();
         }
