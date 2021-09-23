@@ -17,21 +17,21 @@ namespace ProductPriceStatistics.ScraperService
             _parserConfigurations = new List<PageHtmlParserConfiguration>(parserConfigurations);
             _parsers = new List<AbstractSequentialProcessPageHtmlParser<ProductMeasure>>();
 
-            foreach (PageHtmlParserConfiguration configuration in parserConfigurations) 
+            foreach (PageHtmlParserConfiguration configuration in _parserConfigurations) 
             {
                 switch (configuration) 
                 {
                     case CitiLinkPageHtmlParserConfiguration:
-                        _parsers.Add(new CitiLinkParser(htmlLoaderService, configuration));
+                        _parsers.Add(new CitiLinkParser(htmlLoaderService, configuration as CitiLinkPageHtmlParserConfiguration));
                         break;
                     case DnsPageHtmlParserConfiguration:
-                        _parsers.Add(new DnsParser(htmlLoaderService, configuration));
+                        _parsers.Add(new DnsParser(htmlLoaderService, configuration as DnsPageHtmlParserConfiguration));
                         break;
                     case OzonPageHtmlParserConfiguration:
-                        _parsers.Add(new OzonParser(htmlLoaderService, configuration));
+                        _parsers.Add(new OzonParser(htmlLoaderService, configuration as OzonPageHtmlParserConfiguration));
                         break;
                     case PleerPageHtmlParserConfiguration:
-                        _parsers.Add(new PleerParser(htmlLoaderService, configuration));
+                        _parsers.Add(new PleerParser(htmlLoaderService, configuration as PleerPageHtmlParserConfiguration));
                         break;
                 }
             }

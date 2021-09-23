@@ -4,11 +4,14 @@ using System.Collections.Generic;
 
 namespace ProductPriceStatistics.ScraperWorkerService.Configurations
 {
+    enum TypeParser {CitiLink, Pleer, DNS, Ozon }
+
     class ParserConfiguration
     {
-        public IEnumerable<PageHtmlParserConfiguration> Configuration => new List<PageHtmlParserConfiguration>()
-        {
-            
-        };
+        public const string ConfigurationKey = "ParserConfiguration";
+
+        public TypeParser TypeParser { get; set; }
+
+        public string Uri { get; set; }
     }
 }

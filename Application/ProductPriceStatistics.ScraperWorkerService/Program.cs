@@ -11,6 +11,7 @@ using ProductPriceStatistics.Domain.Services;
 using ProductPriceStatistics.Infrastructure.EFCoreRepository;
 using ProductPriceStatistics.ScraperWorkerService.Configurations;
 using System;
+using System.Collections.Generic;
 
 namespace ProductPriceStatistics.ScraperWorkerService
 {
@@ -28,13 +29,13 @@ namespace ProductPriceStatistics.ScraperWorkerService
                 {
                     IConfiguration configuration = hostContext.Configuration;
                     
-                    DbContextConfiguration dbContextConfiguration = new DbContextConfiguration();
+                    var dbContextConfiguration = new DbContextConfiguration();
                     configuration.GetSection(DbContextConfiguration.ConfigurationKey).Bind(dbContextConfiguration);
                     var dbOptions = new DbContextOptionsBuilder<ProductPriceStatisticsDbContext>()
                         .UseNpgsql(dbContextConfiguration.ConnectionString)
                         .Options;
 
-                    HtmlLoaderServiceConfiguration htmlLoaderServiceConfiguration = new HtmlLoaderServiceConfiguration();
+                    var htmlLoaderServiceConfiguration = new HtmlLoaderServiceConfiguration();
                     configuration.GetSection(HtmlLoaderServiceConfiguration.ConfigurationKey).Bind(htmlLoaderServiceConfiguration);
                     IWebDriver webDriver = null;
                     if (htmlLoaderServiceConfiguration.TypeDriver == TypeDriver.Local) 
@@ -47,12 +48,21 @@ namespace ProductPriceStatistics.ScraperWorkerService
                         webDriver = new RemoteWebDriver(new Uri(htmlLoaderServiceConfiguration.PathToDriver), chromeOptions);
                     }
 
+                    var parserConfiguration = new List<ParserConfiguration>();
+                    configuration.GetSection(ParserConfiguration.ConfigurationKey).Bind(parserConfiguration);
+                    var htmlParserConfigurations = ParserConfigurationFactory.CreteParserConfiguration(parserConfiguration);
+
+                    var parserTimeIntervalConfiguration = new ParserTimeIntervalConfiguration();
+                    configuration.GetSection(ParserTimeIntervalConfiguration.ConfigurationKey).Bind(parserTimeIntervalConfiguration);
+
                     services.AddHostedService<Worker>();
                     services.AddSingleton(typeof(IAddPriceToProductService), typeof(AddPriceToProductService));
                     services.AddSingleton(typeof(IProductRepository), typeof(ProductRepository));
                     services.AddSingleton(typeof(IPriceRepository), typeof(PriceRepository));
                     services.AddSingleton<ProductPriceStatisticsDbContext>(new ProductPriceStatisticsDbContext(dbOptions));
                     services.AddSingleton<IHtmlLoaderService>(new SeleniumHtmlLoaderService(webDriver));
+                    services.AddSingleton(htmlParserConfigurations);
+                    services.AddSingleton(parserTimeIntervalConfiguration);
                 });
     }
 }
