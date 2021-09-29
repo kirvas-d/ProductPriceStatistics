@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace ProductPriceStatistics.ScraperService.ParserSiteServices
 {
-    class PleerParser : AbstractSequentialProcessPageHtmlParser<ProductMeasure>
+    public class PleerParser : AbstractSequentialProcessPageHtmlParser<ProductMeasure>
     {
         private readonly IBrowsingContext _browsingContext;
         private readonly Regex regPrice = new Regex(@"[\d-., ]*", RegexOptions.Compiled);

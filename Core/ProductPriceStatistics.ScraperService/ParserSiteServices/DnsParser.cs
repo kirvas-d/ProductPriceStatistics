@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace ProductPriceStatistics.ScraperService.ParserSiteServices
 {
-    class DnsParser : AbstractSequentialProcessPageHtmlParser<ProductMeasure>
+    public class DnsParser : AbstractSequentialProcessPageHtmlParser<ProductMeasure>
     {
         private readonly IBrowsingContext _browsingContext;
         private readonly Regex regPrice = new Regex(@"[\d-., ]*", RegexOptions.Compiled);
@@ -33,7 +33,7 @@ namespace ProductPriceStatistics.ScraperService.ParserSiteServices
                 decimal? price = null;
                 try
                 {
-                    name = product.QuerySelector("a.ui-link").InnerHtml;
+                    name = product.QuerySelector("a.ui-link").QuerySelector("span").InnerHtml;
                     string stringprice = product.QuerySelector("div.product-buy__price")?.TextContent;
                     price = Convert.ToDecimal(regPrice.Match(stringprice).Value);
                 }
