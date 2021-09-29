@@ -30,9 +30,6 @@
     <None Update="Pages\DNS.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Pages\Ozon.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Pages\Pleer.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
