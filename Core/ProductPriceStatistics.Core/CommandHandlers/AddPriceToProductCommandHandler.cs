@@ -1,12 +1,9 @@
 ﻿using ProductPriceStatistics.Core.Models;
+using ProductPriceStatistics.Core.Commands;
 using ProductPriceStatistics.Core.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ProductPriceStatistics.Core.Commands
+namespace ProductPriceStatistics.Core.CommandHandlers
 {
     public class AddPriceToProductCommandHandler : ICommandHandler<AddPriceToProductCommand>
     {
@@ -31,7 +28,16 @@ namespace ProductPriceStatistics.Core.Commands
 
         public void Handle(AddPriceToProductCommand command)
         {
-            throw new NotImplementedException();
+            if (command == null) throw new ArgumentNullException($"{nameof(command)} mustn't be null");
+
+            Product product = _productRepository.GetProductByName(command.ProductName);
+            if (product == null)
+            {
+                product = new Product(Guid.NewGuid(), command.ProductName);
+                _productRepository.AddProduct(product);
+            }
+
+            _priceRepository.AddPrice(new Price(product.ProductId, command.Price, new Store(command.StoreName), command.DateTimeStamp));
         }
     }
 }

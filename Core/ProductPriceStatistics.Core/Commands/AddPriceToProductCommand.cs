@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace ProductPriceStatistics.Core.Models
+namespace ProductPriceStatistics.Core.Commands
 {
-    public class PriceMeasurement
+    public class AddPriceToProductCommand
     {
         public string ProductName { get; init; }
         public decimal Price { get; init; }
         public string StoreName { get; init; }
         public DateTime DateTimeStamp { get; init; }
 
-        public PriceMeasurement(string productName, decimal price, string storeName, DateTime dateTimeStamp)
+        public AddPriceToProductCommand(string productName, decimal price, string storeName, DateTime dateTimeStamp)
         {
             if (productName == null) throw new ArgumentNullException($"{nameof(productName)} mustn't be null");
             ProductName = productName;
