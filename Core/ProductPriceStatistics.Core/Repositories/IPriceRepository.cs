@@ -1,4 +1,5 @@
-﻿using ProductPriceStatistics.Core.Models;
+﻿using ProductPriceStatistics.Core.DTOs;
+using ProductPriceStatistics.Core.Models;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,6 @@ namespace ProductPriceStatistics.Core.Repositories
 
         IEnumerable<Price> GetAllPrices();
 
-        IEnumerable<Price> GetPricesOfProduct(Guid productId, DateTime? startDateTimeStamp, DateTime? finishDateTimeStamp);
+        IEnumerable<PriceDto> GetPricesOfProduct(Guid productId, DateTime? startDateTimeStamp, DateTime? finishDateTimeStamp);
     }
 }
