@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProductPriceStatistics.Infrastructure.EFCoreRepository.Models;
-
-#nullable disable
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
@@ -27,10 +22,6 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql("Host=192.168.0.131;Port=5432;Database=New_Product_DB_1;Username=admin;Password=admin");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

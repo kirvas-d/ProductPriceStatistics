@@ -18,6 +18,8 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 
         public PriceRepository(ProductPriceStatisticsDbContext context)
         {
+            if (context == null) throw new ArgumentNullException($"Argument {nameof(context)} is null");
+
             _context = context;
         }
 
@@ -61,30 +63,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
             }
         }
 
-        public IEnumerable<CoreModels.Price> GetPricesOfProduct(Guid productId, DateTime? startDateTimeStamp, DateTime? finishDateTimeStamp)
-        {
-            IEnumerable<DbModels.Price> pricesOfProduct = Prices.Where(p => p.Product.GlobalProductId == productId)
-                .Include(p => p.Product)
-                .Include(p => p.Store);
-
-            if (startDateTimeStamp != null)
-            {
-                pricesOfProduct = pricesOfProduct.Where(p => startDateTimeStamp < p.DateTimeStamp);
-            }
-
-            if (finishDateTimeStamp != null)
-            {
-                pricesOfProduct = pricesOfProduct.Where(p => p.DateTimeStamp < finishDateTimeStamp);
-            }
-
-            foreach (var price in pricesOfProduct)
-            {
-                yield return new CoreModels.Price(price.Product.GlobalProductId,
-                                                  price.Value,
-                                                  new CoreModels.Store(price.Store.Name),
-                                                  price.DateTimeStamp);
-            }
-        }
+       
 
         public void Dispose()
         {

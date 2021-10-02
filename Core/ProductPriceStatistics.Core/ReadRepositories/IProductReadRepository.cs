@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ProductPriceStatistics.Core.ReadRepositories
 {
-    interface IProductReadRepository
+    public interface IProductReadRepository
     {
         IEnumerable<ProductDto> GetAllProducts();
     }

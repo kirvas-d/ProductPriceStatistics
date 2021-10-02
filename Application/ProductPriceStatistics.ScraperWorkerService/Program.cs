@@ -9,7 +9,6 @@ using OpenQA.Selenium.Remote;
 using ProductPriceStatistics.Core.CommandHandlers;
 using ProductPriceStatistics.Core.Commands;
 using ProductPriceStatistics.Core.Repositories;
-using ProductPriceStatistics.Domain.Services;
 using ProductPriceStatistics.Infrastructure.EFCoreRepository;
 using ProductPriceStatistics.ScraperWorkerService.Configurations;
 using System;
