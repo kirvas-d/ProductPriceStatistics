@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
+using ProductPriceStatistics.Core.CommandHandlers;
+using ProductPriceStatistics.Core.Commands;
 using ProductPriceStatistics.Core.Repositories;
 using ProductPriceStatistics.Domain.Services;
 using ProductPriceStatistics.Infrastructure.EFCoreRepository;
@@ -56,7 +58,7 @@ namespace ProductPriceStatistics.ScraperWorkerService
                     configuration.GetSection(ParserTimeIntervalConfiguration.ConfigurationKey).Bind(parserTimeIntervalConfiguration);
 
                     services.AddHostedService<Worker>();
-                    services.AddSingleton(typeof(IAddPriceToProductService), typeof(AddPriceToProductService));
+                    services.AddSingleton(typeof(ICommandHandler<AddPriceToProductCommand>), typeof(AddPriceToProductCommandHandler));
                     services.AddSingleton(typeof(IProductRepository), typeof(ProductRepository));
                     services.AddSingleton(typeof(IPriceRepository), typeof(PriceRepository));
                     services.AddSingleton<ProductPriceStatisticsDbContext>(new ProductPriceStatisticsDbContext(dbOptions));
