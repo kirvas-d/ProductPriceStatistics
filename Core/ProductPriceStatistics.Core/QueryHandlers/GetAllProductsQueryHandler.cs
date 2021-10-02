@@ -1,21 +1,21 @@
-﻿using ProductPriceStatistics.Core.Models;
-using ProductPriceStatistics.Core.Repositories;
+﻿using ProductPriceStatistics.Core.DTOs;
+using ProductPriceStatistics.Core.ReadRepositories;
 using System.Collections.Generic;
 
 namespace ProductPriceStatistics.Core.QueryHandlers
 {
-    class GetAllProductsQueryHandler : IQueryHandler<IEnumerable<Product>>
+    class GetAllProductsQueryHandler : IQueryHandler<IEnumerable<ProductDto>>
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IProductReadRepository _productReadRepository;
 
-        public GetAllProductsQueryHandler(IProductRepository productRepository) 
+        public GetAllProductsQueryHandler(IProductReadRepository productReadRepository) 
         {
-            _productRepository = productRepository;
+            _productReadRepository = productReadRepository;
         }
 
-        public IEnumerable<Product> Ask()
+        public IEnumerable<ProductDto> Ask()
         {
-            return _productRepository.GetAllProducts();
+            return _productReadRepository.GetAllProducts();
         }
     }
 }

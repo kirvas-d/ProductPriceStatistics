@@ -10,7 +10,5 @@ namespace ProductPriceStatistics.Core.Repositories
         void AddPrice(Price price);
 
         IEnumerable<Price> GetAllPrices();
-
-        IEnumerable<PriceDto> GetPricesOfProduct(Guid productId, DateTime? startDateTimeStamp, DateTime? finishDateTimeStamp);
     }
 }
