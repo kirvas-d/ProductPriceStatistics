@@ -14,12 +14,12 @@ namespace ProductPriceStatistics.Core.CommandHandlers
         {
             if (productRepository == null)
             {
-                throw new ArgumentNullException($"{nameof(productRepository)} is null");
+                throw new ArgumentNullException($"{nameof(productRepository)} mustn't be null");
             }
 
             if (priceRepository == null)
             {
-                throw new ArgumentNullException($"{nameof(priceRepository)} is null");
+                throw new ArgumentNullException($"{nameof(priceRepository)} mustn't be null");
             }
 
             _productRepository = productRepository;

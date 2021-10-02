@@ -4,10 +4,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using HtmlParser.HtmlLoaderService;
-using ProductPriceStatistics.Domain.Services;
 using ProductPriceStatistics.ScraperWorkerService.Configurations;
 using HtmlParser;
 using System.Collections.Generic;
+using ProductPriceStatistics.Core.CommandHandlers;
+using ProductPriceStatistics.Core.Commands;
 
 namespace ProductPriceStatistics.ScraperWorkerService
 {
@@ -15,14 +16,20 @@ namespace ProductPriceStatistics.ScraperWorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly ScraperService.ScraperService _scraperService;
-        private readonly IAddPriceToProductService _addPriceToProductService;
+        private readonly ICommandHandler<AddPriceToProductCommand> _addPriceToProductCommandHandler;
         private readonly ParserTimeIntervalConfiguration _parserTimeIntervalConfiguration;
 
-        public Worker(ILogger<Worker> logger, IHtmlLoaderService htmlLoaderService, IAddPriceToProductService addPriceToProductService, IEnumerable<PageHtmlParserConfiguration> pageHtmlParserConfiguration, ParserTimeIntervalConfiguration parserTimeIntervalConfiguration)
+        public Worker(
+            ILogger<Worker> logger, 
+            IHtmlLoaderService htmlLoaderService, 
+            ICommandHandler<AddPriceToProductCommand> 
+            addPriceToProductCommandHandler, 
+            IEnumerable<PageHtmlParserConfiguration> pageHtmlParserConfiguration, 
+            ParserTimeIntervalConfiguration parserTimeIntervalConfiguration)
         {
             _logger = logger;
             _scraperService = new ScraperService.ScraperService(htmlLoaderService, pageHtmlParserConfiguration);
-            _addPriceToProductService = addPriceToProductService;
+            _addPriceToProductCommandHandler = addPriceToProductCommandHandler;
             _parserTimeIntervalConfiguration = parserTimeIntervalConfiguration;
         }
 
@@ -33,7 +40,11 @@ namespace ProductPriceStatistics.ScraperWorkerService
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 foreach (var productMeassure in _scraperService.ScrapeProducts()) 
                 {
-                    _addPriceToProductService.AddPriceToProduct(productMeassure.ProductName, productMeassure.Price, productMeassure.StoreName, DateTime.Now);
+                    _addPriceToProductCommandHandler.Handle(new AddPriceToProductCommand(
+                        productMeassure.ProductName, 
+                        productMeassure.Price, 
+                        productMeassure.StoreName, 
+                        DateTime.Now));
                 }
 
                 await Task.Delay(_parserTimeIntervalConfiguration.IntervalTimeSpan, stoppingToken);             
