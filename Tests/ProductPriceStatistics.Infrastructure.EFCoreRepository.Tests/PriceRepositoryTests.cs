@@ -24,9 +24,7 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests
             _priceRepository = new PriceRepository(_context);
         }
 
-
-
-        private Product InitProductInContext() 
+        public Product InitProductInContext() 
         {
             Guid guid = Guid.NewGuid();
             Product product = new Product(guid, $"Name-{guid}");
@@ -92,23 +90,6 @@ namespace ProductPriceStatistics.Infrastructure.EFCoreRepository.Tests
             IEnumerable<Price> pricesFromDb = _priceRepository.GetAllPrices();
 
             foreach (var price in prices) 
-            {
-                var priceFromDb = pricesFromDb.Where(p => p.ProductId == price.ProductId &&
-                                                     p.Store == price.Store &&
-                                                     p.Value == price.Value &&
-                                                     p.DateTimeStamp == p.DateTimeStamp).FirstOrDefault();
-
-                Assert.NotNull(priceFromDb);
-            }
-        }
-
-        [Fact]
-        public void GetPricesOfProductTest()
-        {
-            IEnumerable<Price> prices = InitPricesInContext();
-            IEnumerable<Price> pricesFromDb = _priceRepository.GetPricesOfProduct(prices.FirstOrDefault().ProductId, null, null);
-
-            foreach (var price in prices)
             {
                 var priceFromDb = pricesFromDb.Where(p => p.ProductId == price.ProductId &&
                                                      p.Store == price.Store &&
