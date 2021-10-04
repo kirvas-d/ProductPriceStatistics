@@ -7,7 +7,7 @@ using DbModels = ProductPriceStatistics.Infrastructure.EFCoreRepository.Models;
 
 namespace ProductPriceStatistics.Infrastructure.EFCoreRepository
 {
-    class ProductReadRepository : IProductReadRepository
+    public class ProductReadRepository : IProductReadRepository
     {
         private readonly ProductPriceStatisticsDbContext _context;
 

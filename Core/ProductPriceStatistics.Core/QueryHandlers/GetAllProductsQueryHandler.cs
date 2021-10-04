@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ProductPriceStatistics.Core.QueryHandlers
 {
-    class GetAllProductsQueryHandler : IQueryHandler<IEnumerable<ProductDto>>
+    public class GetAllProductsQueryHandler : IQueryHandler<IEnumerable<ProductDto>>
     {
         private readonly IProductReadRepository _productReadRepository;
 
