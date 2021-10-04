@@ -11,8 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.ScraperService", "Core\ProductPriceStatistics.ScraperService\ProductPriceStatistics.ScraperService.csproj", "{4AEE66B3-E6CF-4401-9750-83EE5FCFFE70}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Infrastructure", "Infrastructure\ProductPriceStatistics.Infrastructure\ProductPriceStatistics.Infrastructure.csproj", "{5BA02C01-1715-4541-994C-3B313B2D2FAB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Core", "Core\ProductPriceStatistics.Core\ProductPriceStatistics.Core.csproj", "{32ABD2D4-E2C3-451D-817A-B836F7182B97}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Infrastructure.EFCoreRepository", "Infrastructure\ProductPriceStatistics.Infrastructure.EFCoreRepository\ProductPriceStatistics.Infrastructure.EFCoreRepository.csproj", "{94E4A35B-EB49-4BCA-B921-98CB58C450F6}"
@@ -25,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.Scra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.ScraperService.Tests", "Tests\ProductPriceStatistics.ScraperService.Tests\ProductPriceStatistics.ScraperService.Tests.csproj", "{4701E647-C944-4670-9BFA-1F8AF84720E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductPriceStatistics.WebApi", "Application\ProductPriceStatistics.WebApi\ProductPriceStatistics.WebApi.csproj", "{065F60D3-B2DA-4CE1-80C7-2EF5F97BAA56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductPriceStatistics.WebApi", "Application\ProductPriceStatistics.WebApi\ProductPriceStatistics.WebApi.csproj", "{065F60D3-B2DA-4CE1-80C7-2EF5F97BAA56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +35,6 @@ Global
 		{4AEE66B3-E6CF-4401-9750-83EE5FCFFE70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AEE66B3-E6CF-4401-9750-83EE5FCFFE70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AEE66B3-E6CF-4401-9750-83EE5FCFFE70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BA02C01-1715-4541-994C-3B313B2D2FAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BA02C01-1715-4541-994C-3B313B2D2FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BA02C01-1715-4541-994C-3B313B2D2FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BA02C01-1715-4541-994C-3B313B2D2FAB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32ABD2D4-E2C3-451D-817A-B836F7182B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{32ABD2D4-E2C3-451D-817A-B836F7182B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32ABD2D4-E2C3-451D-817A-B836F7182B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -71,7 +65,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4AEE66B3-E6CF-4401-9750-83EE5FCFFE70} = {D4E4123E-0279-4477-ACA2-312FBBFA504F}
-		{5BA02C01-1715-4541-994C-3B313B2D2FAB} = {72D45900-3124-4C02-8890-BF498D617260}
 		{32ABD2D4-E2C3-451D-817A-B836F7182B97} = {D4E4123E-0279-4477-ACA2-312FBBFA504F}
 		{94E4A35B-EB49-4BCA-B921-98CB58C450F6} = {72D45900-3124-4C02-8890-BF498D617260}
 		{FBD84565-74F2-4167-B8E3-2764DE6BBC8B} = {02CE0291-3E4F-4EC0-ADFA-CD65396B7A1E}
