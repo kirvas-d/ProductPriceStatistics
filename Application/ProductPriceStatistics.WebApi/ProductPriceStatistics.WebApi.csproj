@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\ProductPriceStatistics.Core\ProductPriceStatistics.Core.csproj" />
     <ProjectReference Include="..\..\Infrastructure\ProductPriceStatistics.Infrastructure.EFCoreRepository\ProductPriceStatistics.Infrastructure.EFCoreRepository.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\ProductPriceStatistics.Infrastructure.RabbitMQService\ProductPriceStatistics.Infrastructure.RabbitMQService.csproj" />
   </ItemGroup>
 
 </Project>
