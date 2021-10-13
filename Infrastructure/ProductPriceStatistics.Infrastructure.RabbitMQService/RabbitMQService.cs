@@ -12,11 +12,11 @@ namespace ProductPriceStatistics.Infrastructure.RabbitMQService
         private IModel channel;
         private EventingBasicConsumer consumer;
 
-        public RabbitMQMicroServiceConfigure Configure { get; init; }
+        public RabbitMQServiceConfiguration Configure { get; init; }
 
         public event EventHandler<DeliverEventArgs<TMessage>> Received; 
 
-        public RabbitMQService(RabbitMQMicroServiceConfigure configure) 
+        public RabbitMQService(RabbitMQServiceConfiguration configure) 
         {
             if (configure == null)
             {

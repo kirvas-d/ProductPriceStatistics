@@ -7,8 +7,8 @@ using HtmlParser.HtmlLoaderService;
 using ProductPriceStatistics.ScraperWorkerService.Configurations;
 using HtmlParser;
 using System.Collections.Generic;
-using ProductPriceStatistics.Core.CommandHandlers;
 using ProductPriceStatistics.Core.Commands;
+using ProductPriceStatistics.Infrastructure.RabbitMQService;
 
 namespace ProductPriceStatistics.ScraperWorkerService
 {
@@ -16,21 +16,20 @@ namespace ProductPriceStatistics.ScraperWorkerService
     {
         private readonly ILogger<Worker> _logger;
         private readonly ScraperService.ScraperService _scraperService;
-        private readonly ICommandHandler<AddPriceToProductCommand> _addPriceToProductCommandHandler;
         private readonly ParserTimeIntervalConfiguration _parserTimeIntervalConfiguration;
+        private readonly RabbitMQService<AddPriceToProductCommand> _rabbitMQService;
 
         public Worker(
             ILogger<Worker> logger, 
-            IHtmlLoaderService htmlLoaderService, 
-            ICommandHandler<AddPriceToProductCommand> 
-            addPriceToProductCommandHandler, 
+            IHtmlLoaderService htmlLoaderService,  
             IEnumerable<PageHtmlParserConfiguration> pageHtmlParserConfiguration, 
-            ParserTimeIntervalConfiguration parserTimeIntervalConfiguration)
+            ParserTimeIntervalConfiguration parserTimeIntervalConfiguration,
+            RabbitMQServiceConfiguration rabbitMQMicroServiceConfigure)
         {
             _logger = logger;
             _scraperService = new ScraperService.ScraperService(htmlLoaderService, pageHtmlParserConfiguration);
-            _addPriceToProductCommandHandler = addPriceToProductCommandHandler;
             _parserTimeIntervalConfiguration = parserTimeIntervalConfiguration;
+            _rabbitMQService = new RabbitMQService<AddPriceToProductCommand>(rabbitMQMicroServiceConfigure);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -40,10 +39,10 @@ namespace ProductPriceStatistics.ScraperWorkerService
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 foreach (var productMeassure in _scraperService.ScrapeProducts()) 
                 {
-                    _addPriceToProductCommandHandler.Handle(new AddPriceToProductCommand(
-                        productMeassure.ProductName, 
-                        productMeassure.Price, 
-                        productMeassure.StoreName, 
+                    _rabbitMQService.PublishMessage(new AddPriceToProductCommand(
+                        productMeassure.ProductName,
+                        productMeassure.Price,
+                        productMeassure.StoreName,
                         DateTime.Now));
                 }
 

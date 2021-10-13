@@ -10,6 +10,7 @@ using ProductPriceStatistics.Core.CommandHandlers;
 using ProductPriceStatistics.Core.Commands;
 using ProductPriceStatistics.Core.Repositories;
 using ProductPriceStatistics.Infrastructure.EFCoreRepository;
+using ProductPriceStatistics.Infrastructure.RabbitMQService;
 using ProductPriceStatistics.ScraperWorkerService.Configurations;
 using System;
 using System.Collections.Generic;
@@ -29,13 +30,7 @@ namespace ProductPriceStatistics.ScraperWorkerService
                 .ConfigureServices((hostContext, services) =>
                 {
                     IConfiguration configuration = hostContext.Configuration;
-                    
-                    var dbContextConfiguration = new DbContextConfiguration();
-                    configuration.GetSection(DbContextConfiguration.ConfigurationKey).Bind(dbContextConfiguration);
-                    var dbOptions = new DbContextOptionsBuilder<ProductPriceStatisticsDbContext>()
-                        .UseNpgsql(dbContextConfiguration.ConnectionString)
-                        .Options;
-
+                                    
                     var htmlLoaderServiceConfiguration = new HtmlLoaderServiceConfiguration();
                     configuration.GetSection(HtmlLoaderServiceConfiguration.ConfigurationKey).Bind(htmlLoaderServiceConfiguration);
                     IWebDriver webDriver = null;
@@ -56,14 +51,14 @@ namespace ProductPriceStatistics.ScraperWorkerService
                     var parserTimeIntervalConfiguration = new ParserTimeIntervalConfiguration();
                     configuration.GetSection(ParserTimeIntervalConfiguration.ConfigurationKey).Bind(parserTimeIntervalConfiguration);
 
+                    var rabbitMQServiceConfiguration = new RabbitMQServiceConfiguration();
+                    configuration.GetSection(RabbitMQServiceConfiguration.ConfigurationKey).Bind(rabbitMQServiceConfiguration);
+
                     services.AddHostedService<Worker>();
-                    services.AddSingleton(typeof(ICommandHandler<AddPriceToProductCommand>), typeof(AddPriceToProductCommandHandler));
-                    services.AddSingleton(typeof(IProductRepository), typeof(ProductRepository));
-                    services.AddSingleton(typeof(IPriceRepository), typeof(PriceRepository));
-                    services.AddSingleton<ProductPriceStatisticsDbContext>(new ProductPriceStatisticsDbContext(dbOptions));
                     services.AddSingleton<IHtmlLoaderService>(new SeleniumHtmlLoaderService(webDriver));
                     services.AddSingleton(htmlParserConfigurations);
                     services.AddSingleton(parserTimeIntervalConfiguration);
+                    services.AddSingleton(rabbitMQServiceConfiguration);
                 });
     }
 }
