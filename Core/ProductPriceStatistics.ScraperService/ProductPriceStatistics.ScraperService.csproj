@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.16.0" />
-    <PackageReference Include="HtmlParser" Version="0.0.2" />
+    <PackageReference Include="HtmlParser" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>

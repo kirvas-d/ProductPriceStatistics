@@ -31,19 +31,6 @@ namespace ProductPriceStatistics.ScraperWorkerService
                 {
                     IConfiguration configuration = hostContext.Configuration;
                                     
-                    var htmlLoaderServiceConfiguration = new HtmlLoaderServiceConfiguration();
-                    configuration.GetSection(HtmlLoaderServiceConfiguration.ConfigurationKey).Bind(htmlLoaderServiceConfiguration);
-                    IWebDriver webDriver = null;
-                    if (htmlLoaderServiceConfiguration.TypeDriver == TypeDriver.Local) 
-                    {
-                        webDriver = new ChromeDriver(htmlLoaderServiceConfiguration.PathToDriver);
-                    }
-                    if (htmlLoaderServiceConfiguration.TypeDriver == TypeDriver.Remote) 
-                    {
-                        var chromeOptions = new ChromeOptions();
-                        webDriver = new RemoteWebDriver(new Uri(htmlLoaderServiceConfiguration.PathToDriver), chromeOptions);
-                    }
-
                     var parserConfiguration = new List<ParserConfiguration>();
                     configuration.GetSection(ParserConfiguration.ConfigurationKey).Bind(parserConfiguration);
                     var htmlParserConfigurations = ParserConfigurationFactory.CreteParserConfiguration(parserConfiguration);
@@ -55,7 +42,7 @@ namespace ProductPriceStatistics.ScraperWorkerService
                     configuration.GetSection(RabbitMQServiceConfiguration.ConfigurationKey).Bind(rabbitMQServiceConfiguration);
 
                     services.AddHostedService<Worker>();
-                    services.AddSingleton<IHtmlLoaderService>(new SeleniumHtmlLoaderService(webDriver));
+                    services.AddSingleton<IHtmlLoaderService ,PlayWrightHtmlLoaderService>();
                     services.AddSingleton(htmlParserConfigurations);
                     services.AddSingleton(parserTimeIntervalConfiguration);
                     services.AddSingleton(rabbitMQServiceConfiguration);
