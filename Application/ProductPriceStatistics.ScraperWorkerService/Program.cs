@@ -42,7 +42,7 @@ namespace ProductPriceStatistics.ScraperWorkerService
                     configuration.GetSection(RabbitMQServiceConfiguration.ConfigurationKey).Bind(rabbitMQServiceConfiguration);
 
                     services.AddHostedService<Worker>();
-                    services.AddSingleton<IHtmlLoaderService ,PlayWrightHtmlLoaderService>();
+                    services.AddSingleton<IHtmlLoaderService, PlayWrightHtmlLoaderService>();
                     services.AddSingleton(htmlParserConfigurations);
                     services.AddSingleton(parserTimeIntervalConfiguration);
                     services.AddSingleton(rabbitMQServiceConfiguration);
