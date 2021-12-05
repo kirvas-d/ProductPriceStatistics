@@ -25,6 +25,7 @@ namespace ProductPriceStatistics.Infrastructure.RabbitMQService
             Configure = configure;
 
             var factory = new ConnectionFactory() { HostName = Configure.HostName, Port = Configure.Port };
+
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
             channel.QueueDeclare(queue: Configure.QueueName,

@@ -51,10 +51,10 @@ namespace ProductPriceStatistics.WebApi
                 .UseNpgsql(dbContextConfiguration.ConnectionString)
                 .Options;
 
-            //var rabbitMQServiceConfiguration = new RabbitMQServiceConfiguration();
-            //Configuration.GetSection(RabbitMQServiceConfiguration.ConfigurationKey).Bind(rabbitMQServiceConfiguration);
+            var rabbitMQServiceConfiguration = new RabbitMQServiceConfiguration();
+            Configuration.GetSection(RabbitMQServiceConfiguration.ConfigurationKey).Bind(rabbitMQServiceConfiguration);
 
-            //services.AddSingleton(rabbitMQServiceConfiguration);
+            services.AddSingleton(rabbitMQServiceConfiguration);
             services.AddSingleton<ProductPriceStatisticsDbContext>(new ProductPriceStatisticsDbContext(dbOptions));
             services.AddSingleton(typeof(IQueryHandler<GetPricesOfProductQuery, IEnumerable<PriceDto>>), typeof(GetPricesOfProductQueryHandler));
             services.AddSingleton(typeof(IQueryHandler<IEnumerable<ProductDto>>), typeof(GetAllProductsQueryHandler));
@@ -63,7 +63,7 @@ namespace ProductPriceStatistics.WebApi
             services.AddSingleton(typeof(IProductReadRepository), typeof(ProductReadRepository));
             services.AddSingleton(typeof(IProductRepository), typeof(ProductRepository));
             services.AddSingleton(typeof(IPriceRepository), typeof(PriceRepository));
-            //services.AddHostedService<AddPriceToProductHandlerHostedService>();
+            services.AddHostedService<AddPriceToProductHandlerHostedService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
