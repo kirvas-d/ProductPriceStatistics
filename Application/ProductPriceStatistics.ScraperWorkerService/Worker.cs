@@ -39,11 +39,18 @@ namespace ProductPriceStatistics.ScraperWorkerService
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 foreach (var productMeassure in _scraperService.ScrapeProducts()) 
                 {
-                    _rabbitMQService.PublishMessage(new AddPriceToProductCommand(
-                        productMeassure.ProductName,
-                        productMeassure.Price,
-                        productMeassure.StoreName,
-                        DateTime.Now));
+                    try
+                    {
+                        _rabbitMQService.PublishMessage(new AddPriceToProductCommand(
+                            productMeassure.ProductName,
+                            productMeassure.Price,
+                            productMeassure.StoreName,
+                            DateTime.Now));
+                    }
+                    catch (ArgumentException e) 
+                    {
+                        _logger.LogError("AddPriceToProductCommand with {productMeassure} throw exception {exception}", productMeassure, e.ToString());
+                    }
                 }
 
                 await Task.Delay(_parserTimeIntervalConfiguration.IntervalTimeSpan, stoppingToken);             
