@@ -36,7 +36,8 @@ namespace ProductPriceStatistics.ScraperWorkerService
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                DateTime startScrapingTime = DateTime.Now;
+                _logger.LogInformation("ScraperWorker running at: {time}", startScrapingTime);
                 foreach (var productMeassure in _scraperService.ScrapeProducts()) 
                 {
                     try
@@ -46,6 +47,7 @@ namespace ProductPriceStatistics.ScraperWorkerService
                             productMeassure.Price,
                             productMeassure.StoreName,
                             DateTime.Now));
+                        _logger.LogInformation("AddPriceToProductCommand created with properties {productMeassure}", productMeassure);
                     }
                     catch (ArgumentException e) 
                     {
@@ -53,6 +55,8 @@ namespace ProductPriceStatistics.ScraperWorkerService
                     }
                 }
 
+                DateTime finishScrapingTime = DateTime.Now;
+                _logger.LogInformation("ScraperWorker finished at: {time}. Total time: {totalTime}", finishScrapingTime, finishScrapingTime - startScrapingTime);
                 await Task.Delay(_parserTimeIntervalConfiguration.IntervalTimeSpan, stoppingToken);             
             }
         }
